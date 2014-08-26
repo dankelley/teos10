@@ -1,0 +1,4 @@
+useDynLib(teos10)
+useDynLib(libgswteos10)
+export(teos10)
+
