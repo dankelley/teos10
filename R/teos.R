@@ -1,8 +1,11 @@
 ## http://r.789695.n4.nabble.com/question-re-error-message-package-error-quot-functionName-quot-not-resolved-from-current-namespace-td4663892.html
 
-teos10 <- function(name, a1, a2, a3, a4,
-                   lib=paste(.libPaths(), "/teos10/libs/libgswteos10.so", sep=""))
+teos10 <- function(name, a1, a2, a3, a4, lib)
 {
+    if (missing(lib)) {
+        lib <- paste(.libPaths(), "/teos10/libs/libgswteos10.so", sep="")
+        ## FIXME: test for Windows machine and set up 'lib' appropriately 
+    }
     if (missing(name))
         stop("a function name must be given, and it must be in lower case letters, e.g. \"gsw_sa_from_sp\"")
     if (missing(a1))
@@ -47,16 +50,14 @@ teos10 <- function(name, a1, a2, a3, a4,
                          as.integer(ngood),
                          as.double(a1[good]),
                          as.double(a2[good]),
-                         rval=double(ngood), NAOK=TRUE)$rval
-                         #rval=double(ngood), NAOK=TRUE, PACKAGE="teos")$rval
+                         rval=double(ngood), NAOK=TRUE, PACKAGE="teos10")$rval
     } else if (args == 3) {
         rval[good] <- .C("gsw3a", as.character(lib), as.character(name),
                          as.integer(ngood),
                          as.double(a1[good]),
                          as.double(a2[good]),
                          as.double(a3[good]),
-                         rval=double(ngood), NAOK=TRUE)$rval
-                         #rval=double(ngood), NAOK=TRUE, PACKAGE="teos")$rval
+                         rval=double(ngood), NAOK=TRUE, PACKAGE="teos10")$rval
     } else if (args == 4) {
         rval[good] <- .C("gsw4a", as.character(lib), as.character(name),
                          as.integer(ngood),
@@ -64,8 +65,7 @@ teos10 <- function(name, a1, a2, a3, a4,
                          as.double(a2[good]),
                          as.double(a3[good]),
                          as.double(a4[good]),
-                         rval=double(ngood), NAOK=TRUE)$rval
-                         #rval=double(ngood), NAOK=TRUE, PACKAGE="teos")$rval
+                         rval=double(ngood), NAOK=TRUE, PACKAGE="teos10")$rval
     }
     rval[rval == 9e15] <- NA
     dim(rval) <- dim

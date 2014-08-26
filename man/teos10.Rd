@@ -6,8 +6,7 @@
 
 \description{Interface to TEOS-10 library}
 
-\usage{teos10(name, a1, a2, a3, a4,
-    lib=paste(.libPaths(), "/teos10/libs/libgswteos10.so", sep=""))}
+\usage{teos10(name, a1, a2, a3, a4, lib)}
 
 \arguments{
 
@@ -23,7 +22,9 @@
   \item{a2}{the second argument to the named TEOS-10 function.}
   \item{a3}{the third argument to the named TEOS-10 function.}
   \item{a4}{the fourth argument to the named TEOS-10 function.}
-  \item{lib}{the file name of the shared library that provides TEOS-10.}
+
+  \item{lib}{the file name of the shared library that provides TEOS-10.  If
+      missing, a reasonable default is used.}
 }
 
 \details{This is a simple interface to the TEOS-10 library, which demands some
