@@ -58,16 +58,16 @@ teos10("gsw_rho", 35.7, 20, 300)
 \references{
     [1] McDougall, T.J. and P.M. Barker, 2011: Getting started with TEOS-10 and
     the Gibbs Seawater (GSW) Oceanographic Toolbox, 28pp., SCOR/IAPSO WG127,
-    ISBN 978-0-646-55621-5.
-
-    [2] The TEOS-10 library is provided at \url{www.teos-10.org}.
+    ISBN 978-0-646-55621-5.  \url{http://www.teos-10.org/pubs/Getting_Started.pdf}
     
-    [3] A programming interface to the matlab version of the TEOS library is
-    provided at \url{http://www.teos-10.org/pubs/gsw/html/gsw_contents.html}.
-
-    [4] R. Pawlowicz, T. McDougall, R. Feistel and R. Tailleux, 2012.  An
+    [2] R. Pawlowicz, T. McDougall, R. Feistel and R. Tailleux, 2012.  An
     historical perspective on the development of the Thermodynamic Equation of
-    Seawater - 2010. Ocean Science, 8, 161-174.
+    Seawater - 2010. Ocean Science, 8, 161-174.  \url{http://www.ocean-sci.net/8/161/2012/os-8-161-2012.pdf}
+
+    [3] TEOS-10 software and documentation are provided at \url{www.teos-10.org}.
+    
+    [4] A programming interface to the matlab version of the TEOS library is
+    provided at \url{http://www.teos-10.org/pubs/gsw/html/gsw_contents.html}.
 
 }
 
