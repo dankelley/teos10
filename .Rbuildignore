@@ -13,4 +13,5 @@ vignettes/.build.timestamp
 ^\.Rproj\.user$
 src/*.o$
 src/*.so$
-HIDE/*
+README_developer.md
+`
