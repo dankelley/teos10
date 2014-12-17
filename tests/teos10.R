@@ -7,12 +7,24 @@ SP <- c(34.5487,34.7275,34.8605,34.6810,34.5680,34.56)
 p <- c(10,50,125,250,600,1000)
 longitude <- rep(188,6)
 latitude <- rep(4,6)
-SA <- teos10("gsw_sa_from_sp", SP, p, longitude, latitude)
-SAexpected <- c(34.711778344814114, 34.891522618230098, 35.025544862476920,
-                34.847229026189588, 34.736628474576051, 34.732363065590846)
-stopifnot(all.equal(SAexpected, SA))
-SA <- gsw_SA_from_SP(SP, p, longitude, latitude)
-stopifnot(all.equal(SAexpected, SA))
-SA <- gsw_SA_from_SP(SP, p, longitude[1], latitude[1])
-stopifnot(all.equal(SAexpected, SA))
+
+
+
+## SA <- teos10("gsw_sa_from_sp", SP, p, longitude, latitude)
+## SAexpected <- c(34.711778344814114, 34.891522618230098, 35.025544862476920,
+##                 34.847229026189588, 34.736628474576051, 34.732363065590846)
+## stopifnot(all.equal(SAexpected, SA))
+## SA <- gsw_SA_from_SP(SP, p, longitude, latitude)
+## stopifnot(all.equal(SAexpected, SA))
+## SA <- gsw_SA_from_SP(SP, p, longitude[1], latitude[1])
+## stopifnot(all.equal(SAexpected, SA))
+
+
+## gsw_SP_from_C
+C <- c(34.5487, 34.7275, 34.8605, 34.6810, 34.5680, 34.5600)
+t <- c(28.7856, 28.4329, 22.8103, 10.2600,  6.8863,  4.4036)
+p <- c(     10,      50,     125,     250,     600,    1000)
+SP <- gsw_SP_from_C(C, t, p)
+stopifnot(all.equal(SP,c(20.009869599086951,20.265511864874270,22.981513062527689,
+                         31.204503263727982,34.032315787432829,36.400308494388170)))
 

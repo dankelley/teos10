@@ -4,8 +4,10 @@
 **
 **  TEOS-10 V3.0
 */
-#include <gswteos-10.h>
-#include <gsw_saar_data.c>
+//#include <gswteos-10.h>
+#include "gswteos-10.h"
+//#include <gsw_saar_data.c>
+#include "gsw_saar_data.c"
 
 static double
 gsw_sum(double *x, int n)

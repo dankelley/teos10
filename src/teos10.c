@@ -11,6 +11,8 @@
 // 2. http://www.ibm.com/developerworks/aix/library/au-porting/
 
 //*lib = "/usr/local/lib/libgswteos-10.so"; // FIXME: testing, since getting an error otherwise
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <R.h>
 #include <Rdefines.h>

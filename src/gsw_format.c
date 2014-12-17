@@ -9,6 +9,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <R.h>
+#include <Rdefines.h>
+#include <Rinternals.h>
 
 int
 main(int argc, char **argv)
@@ -29,8 +32,8 @@ main(int argc, char **argv)
 	delta_sa_ref	= malloc(nx*ny*nz*sizeof (double));
 
 	if ((fin=fopen("gsw_data_v3_0.dat", "r"))==NULL) {
-	    perror("gsw_data_v3_0.dat");
-	    exit(1);
+	    //perror("gsw_data_v3_0.dat");
+	    error("cannot find file gsw_data_v3_0.dat");
 	}
 	for (i=0; i<nx; i++) {
 	    if (fgets(buf, sizeof (buf), fin)==NULL)
@@ -63,97 +66,97 @@ main(int argc, char **argv)
 	    delta_sa_ref[i]	= strtod(buf, NULL);
 	}
 	fclose(fin);
-	printf("static int\tgsw_nx=%d, gsw_ny=%d, gsw_nz=%d;\n",
+	Rprintf("static int\tgsw_nx=%d, gsw_ny=%d, gsw_nz=%d;\n",
 		nx, ny, nz);
-	printf("static double\tlongs_ref[%d] = {\n",nx);
+	Rprintf("static double\tlongs_ref[%d] = {\n",nx);
 	buf[0]	= '\0';
 	for (i=0; i<nx; i++) {
 	    sprintf(b,"%.17g", longs_ref[i]);
 	    if (i<(nx-1))
 		strcat(b,",");
 	    if (strlen(buf)+strlen(b) > MAX_CHARS) {
-		printf("\t%s\n",buf);
+		Rprintf("\t%s\n",buf);
 		buf[0]	= '\0';
 	    }
 	    strcat(buf,b);
 	}
 	if (strlen(buf) != 0)
-	    printf("\t%s\n",buf);
-	printf("\t};\n");
-	printf("static double\tlats_ref[%d] = {\n",ny);
+	    Rprintf("\t%s\n",buf);
+	Rprintf("\t};\n");
+	Rprintf("static double\tlats_ref[%d] = {\n",ny);
 	buf[0]	= '\0';
 	for (i=0; i<ny; i++) {
 	    sprintf(b,"%.17g", lats_ref[i]);
 	    if (i<(ny-1))
 		strcat(b,",");
 	    if (strlen(buf)+strlen(b) > MAX_CHARS) {
-		printf("\t%s\n",buf);
+		Rprintf("\t%s\n",buf);
 		buf[0]	= '\0';
 	    }
 	    strcat(buf,b);
 	}
 	if (strlen(buf) != 0)
-	    printf("\t%s\n",buf);
-	printf("\t};\n");
-	printf("static double\tp_ref[%d] = {\n",nz);
+	    Rprintf("\t%s\n",buf);
+	Rprintf("\t};\n");
+	Rprintf("static double\tp_ref[%d] = {\n",nz);
 	buf[0]	= '\0';
 	for (i=0; i<nz; i++) {
 	    sprintf(b,"%.17g", p_ref[i]);
 	    if (i<(nz-1))
 		strcat(b,",");
 	    if (strlen(buf)+strlen(b) > MAX_CHARS) {
-		printf("\t%s\n",buf);
+		Rprintf("\t%s\n",buf);
 		buf[0]	= '\0';
 	    }
 	    strcat(buf,b);
 	}
 	if (strlen(buf) != 0)
-	    printf("\t%s\n",buf);
-	printf("\t};\n");
-	printf("static double\tndepth_ref[%d] = {\n",nx*ny);
+	    Rprintf("\t%s\n",buf);
+	Rprintf("\t};\n");
+	Rprintf("static double\tndepth_ref[%d] = {\n",nx*ny);
 	buf[0]	= '\0';
 	for (i=0; i<nx*ny; i++) {
 	    sprintf(b,"%.17g", ndepth_ref[i]);
 	    if (i<(nx*ny-1))
 		strcat(b,",");
 	    if (strlen(buf)+strlen(b) > MAX_CHARS) {
-		printf("\t%s\n",buf);
+		Rprintf("\t%s\n",buf);
 		buf[0]	= '\0';
 	    }
 	    strcat(buf,b);
 	}
 	if (strlen(buf) != 0)
-	    printf("\t%s\n",buf);
-	printf("\t};\n");
-	printf("static double\tsaar_ref[%d] = {\n",nx*ny*nz);
+	    Rprintf("\t%s\n",buf);
+	Rprintf("\t};\n");
+	Rprintf("static double\tsaar_ref[%d] = {\n",nx*ny*nz);
 	buf[0]	= '\0';
 	for (i=0; i<nx*ny*nz; i++) {
 	    sprintf(b,"%.17g", saar_ref[i]);
 	    if (i<(nx*ny*nz-1))
 		strcat(b,",");
 	    if (strlen(buf)+strlen(b) > MAX_CHARS) {
-		printf("\t%s\n",buf);
+		Rprintf("\t%s\n",buf);
 		buf[0]	= '\0';
 	    }
 	    strcat(buf,b);
 	}
 	if (strlen(buf) != 0)
-	    printf("\t%s\n",buf);
-	printf("\t};\n");
-	printf("static double\tdelta_sa_ref[%d] = {\n",nx*ny*nz);
+	    Rprintf("\t%s\n",buf);
+	Rprintf("\t};\n");
+	Rprintf("static double\tdelta_sa_ref[%d] = {\n",nx*ny*nz);
 	buf[0]	= '\0';
 	for (i=0; i<nx*ny*nz; i++) {
 	    sprintf(b,"%.17g", delta_sa_ref[i]);
 	    if (i<(nx*ny*nz-1))
 		strcat(b,",");
 	    if (strlen(buf)+strlen(b) > MAX_CHARS) {
-		printf("\t%s\n",buf);
+		Rprintf("\t%s\n",buf);
 		buf[0]	= '\0';
 	    }
 	    strcat(buf,b);
 	}
 	if (strlen(buf) != 0)
-	    printf("\t%s\n",buf);
-	printf("\t};\n");
+	    Rprintf("\t%s\n",buf);
+	Rprintf("\t};\n");
 	return (0);
 }

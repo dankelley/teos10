@@ -1,5 +1,4 @@
 useDynLib(teos10)
-useDynLib(libgswteos10)
-export(teos10,
-        gsw_SA_from_SP)
+export(gsw_SA_from_SP,
+       gsw_SP_from_C)
 
