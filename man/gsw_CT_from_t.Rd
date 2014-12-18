@@ -9,9 +9,9 @@ gsw_CT_from_t(SA, t, p)
 \arguments{
 \item{SA}{Absolute salinity}
 
-\item{t}{In-situ temperature in degrees C.}
+\item{t}{In-situ temperature (ITS-90) in degrees C.}
 
-\item{p}{Pressure in decibars. FIXME: check unit}
+\item{p}{Sea pressure in decibars.}
 }
 \description{
 Convert from temperature to conservative temperature

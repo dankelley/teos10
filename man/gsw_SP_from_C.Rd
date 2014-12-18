@@ -7,11 +7,11 @@
 gsw_SP_from_C(C, t, p)
 }
 \arguments{
-\item{C}{Conductivity ratio. FIXME: check unit}
+\item{C}{Conductivity in mS/cm.}
 
-\item{t}{In-situ temperature in degrees C.}
+\item{t}{In-situ temperature (ITS-90) in degrees C.}
 
-\item{p}{Pressure in decibars. FIXME: check unit}
+\item{p}{Sea pressure in decibars.}
 }
 \value{
 Practical salinity.

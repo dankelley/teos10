@@ -1,5 +1,6 @@
 useDynLib(teos10)
 export(
+        argfix,
         gsw_CT_from_t,
         gsw_SA_from_SP,
         gsw_SP_from_C)

@@ -4,8 +4,10 @@ Date: 2014-08-26
 Title: TEOS-10 (thermodynamic equation of seawater)
 Author: Dan Kelley
 Maintainer: Dan Kelley <Dan.Kelley@Dal.Ca>
-Depends: R (>= 2.15)
-BugReports: https://github.com/dankelley/teos10/issues?sort=created&direction=desc&state=open
+Depends:
+    R (>= 2.15)
+BugReports:
+    https://github.com/dankelley/teos10/issues?sort=created&direction=desc&state=open
 Description: Provides an interface to the TEOS-10 C library.
 URL: http://dankelley.github.com/teos10/
 License: GPL (>= 2)
