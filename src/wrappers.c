@@ -15,10 +15,10 @@ void wrap_gsw_CT_from_t(double *SA, double *t, double *p, int *n, double *rval)
         rval[i] = gsw_ct_from_t(SA[i], t[i], p[i]);
 }
 
-void wrap_gsw_Nsquared(double *SA, double *CT, double *p, double *lat, int *n, double *n2, double *p_mid)
+void wrap_gsw_Nsquared(double *SA, double *CT, double *p, double *latitude, int *n, double *n2, double *p_mid)
 {
-    extern void gsw_nsquared(double *sa, double *ct, double *p, double *lat, int nz, double *n2, double *p_mid);
-    gsw_nsquared(SA, CT, p, lat, *n, n2, p_mid);
+    extern void gsw_nsquared(double *sa, double *ct, double *p, double *latitude, int nz, double *n2, double *p_mid);
+    gsw_nsquared(SA, CT, p, latitude, *n, n2, p_mid);
 }
 
 void wrap_gsw_SP_from_C(double *C, double *t, double *p, int *n, double *rval)

@@ -19,14 +19,15 @@ gsw_Nsquared(SA, CT, p, latitude = 0)
 Square of buoyancy frequency in 1/s^2, a vector of length 1 less than SA.
 }
 \description{
-Calculate square of buoyancy frequency
+BUG: the values seem to be off by about 1 part in 1e6, which
+is too high to be explained by numerical precision (I think).
 }
 \examples{
-SA <- c(34.7118, 34.8915, 35.0256, 34.8472, 34.7366, 34.7324)
-CT <- c(28.8099, 28.4392, 22.7862, 10.2262,  6.8272,  4.3236)
-p <- c(      10,      50,     125,     250,     600,    1000)
+SA <- c(34.7118, 34.8915)
+CT <- c(28.8099, 28.4392)
+p <- c(      10,      50)
 latitude <- 4
-gsw_Nsquared(SA, CT, p, latitude) # 1e-3*c(0.060846990523477, 0.235607737824943, 0.215533939997650, 0.012924024206854, 0.008425873682231)
+gsw_Nsquared(SA, CT, p, latitude) # 6.0846990523477e-5
 }
 \references{
 \url{http://www.teos-10.org/pubs/gsw/html/gsw_Nsquared.html}

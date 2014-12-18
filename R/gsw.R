@@ -67,6 +67,9 @@ gsw_CT_from_t <- function(SA, t, p)
 }
 
 #' Calculate square of buoyancy frequency
+#'
+#' BUG: the values seem to be off by about 1 part in 1e6, which
+#' is too high to be explained by numerical precision (I think).
 #' 
 #' @param SA Absolute salinity.
 #' @param CT Conservative temperature.
@@ -74,19 +77,19 @@ gsw_CT_from_t <- function(SA, t, p)
 #' @param latitude The latitude in deg North.
 #' @return Square of buoyancy frequency in 1/s^2, a vector of length 1 less than SA.
 #' @examples 
-#' SA <- c(34.7118, 34.8915, 35.0256, 34.8472, 34.7366, 34.7324)
-#' CT <- c(28.8099, 28.4392, 22.7862, 10.2262,  6.8272,  4.3236)
-#' p <- c(      10,      50,     125,     250,     600,    1000)
+#' SA <- c(34.7118, 34.8915)
+#' CT <- c(28.8099, 28.4392)
+#' p <- c(      10,      50)
 #' latitude <- 4
-#' gsw_Nsquared(SA, CT, p, latitude) # 1e-3*c(0.060846990523477, 0.235607737824943, 0.215533939997650, 0.012924024206854, 0.008425873682231)
+#' gsw_Nsquared(SA, CT, p, latitude) # 6.0846990523477e-5
 #' @references
 #' \url{http://www.teos-10.org/pubs/gsw/html/gsw_Nsquared.html}
 gsw_Nsquared <- function(SA, CT, p, latitude=0)
 {
-    l <- argfix(list(SA=SA, CT=CT, p=p))
+    l <- argfix(list(SA=SA, CT=CT, p=p, latitude=latitude))
     n <- length(l[[1]])
     rval <- .C("wrap_gsw_Nsquared",
-               SA=as.double(l$SA), CT=as.double(l$CT), p=as.double(l$p), latitude=as.double(latitude),
+               SA=as.double(l$SA), CT=as.double(l$CT), p=as.double(l$p), latitude=as.double(l$latitude),
                n=n, n2=double(n), p_mid=double(n))$n2
     ## How to handle the reduction in length for a matrix??
     if (is.matrix(SA))
