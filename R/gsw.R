@@ -1,3 +1,24 @@
+# AUTHOR NOTES: HOW TO ADD A NEW FUNCTION.
+#
+# 1. One must to write wrappers (in ../src/wrappers.c) for any GSW function that
+#    returns a value. This is because .C() can only handle functions that return void. 
+#    The name of the wrapper function should be case matching the R function, which
+#    in turn should match that of the TEOS-10 Matlab names as listed at
+#        http://www.teos-10.org/pubs/gsw/html/gsw_contents.html
+# 2. Once a wrapper exists, create an R function by mimicking e.g. gsw_CT_from_t(). Be sure
+#    to document the function as is done here. And be sure to use the capitalization 
+#    used on the TEOS-10 website for matlab code, because that is what users will
+#    probably expect. Place the function in its correct alphabetical position.
+# 3. Add an entry for the function in ../NAMESPACE.
+# 4. Enter the .. directory and type
+#        Rscript -e "roxygen2::roxygenise()
+#    to create new manpages.
+# 5. Add a test to ../tests/teso10.R, using a test value from the TEOS-10 website.
+# 6. Build the package to see that code matches docs, etc.
+
+
+## PART 1: utility functions
+
 #' Reshape list elements to match the shape of the first element.
 #'
 #' @param l A list of elements, typically arguments that will be used in GSW functions.
@@ -21,6 +42,9 @@ argfix <- function(l)
     l
 }
 
+
+## PART 2: gsw (Gibbs SeaWater) functions, in alphabetical order (ignoring case)
+
 #' Convert from temperature to conservative temperature
 #' 
 #' @param SA Absolute salinity
@@ -34,11 +58,41 @@ gsw_CT_from_t <- function(SA, t, p)
 {
     l <- argfix(list(SA=SA, t=t, p=p))
     n <- length(l[[1]])
-    rval <- .C("wrap_gsw_ct_from_t",
+    rval <- .C("wrap_gsw_CT_from_t",
                SA=as.double(l$SA), t=as.double(l$t), p=as.double(l$p),
                n=n, rval=double(n))$rval
     if (is.matrix(SA))
         dim(rval) <- dim(SA)
+    rval
+}
+
+#' Calculate square of buoyancy frequency
+#' 
+#' @param SA Absolute salinity.
+#' @param CT Conservative temperature.
+#' @param p Sea pressure in decibars.
+#' @param latitude The latitude in deg North.
+#' @return Square of buoyancy frequency in 1/s^2, a vector of length 1 less than SA.
+#' @examples 
+#' SA <- c(34.7118, 34.8915, 35.0256, 34.8472, 34.7366, 34.7324)
+#' CT <- c(28.8099, 28.4392, 22.7862, 10.2262,  6.8272,  4.3236)
+#' p <- c(      10,      50,     125,     250,     600,    1000)
+#' latitude <- 4
+#' gsw_Nsquared(SA, CT, p, latitude) # 1e-3*c(0.060846990523477, 0.235607737824943, 0.215533939997650, 0.012924024206854, 0.008425873682231)
+#' @references
+#' \url{http://www.teos-10.org/pubs/gsw/html/gsw_Nsquared.html}
+gsw_Nsquared <- function(SA, CT, p, latitude=0)
+{
+    l <- argfix(list(SA=SA, CT=CT, p=p))
+    n <- length(l[[1]])
+    rval <- .C("wrap_gsw_Nsquared",
+               SA=as.double(l$SA), CT=as.double(l$CT), p=as.double(l$p), latitude=as.double(latitude),
+               n=n, n2=double(n), p_mid=double(n))$n2
+    ## How to handle the reduction in length for a matrix??
+    if (is.matrix(SA))
+        dim(rval) <- dim(SA)
+    else
+        rval <- head(rval, -1)
     rval
 }
 
@@ -57,11 +111,11 @@ gsw_SA_from_SP <- function(SP, p, longitude, latitude)
 {
     l <- argfix(list(SP=SP, p=p, longitude=longitude, latitude=latitude))
     n <- length(l[[1]])
-    rval <- .C("wrap_gsw_sa_from_sp",
+    rval <- .C("wrap_gsw_SA_from_SP",
                SA=as.double(l$SP), p=as.double(l$p), longitude=as.double(l$longitude), latitude=as.double(l$latitude),
                n=n, rval=double(n))$rval
     if (is.matrix(SP))
-        dim(rval) <- dim(SA)
+        dim(rval) <- dim(SP)
     rval
 }
 
@@ -79,7 +133,7 @@ gsw_SP_from_C <- function(C, t, p)
 {
     l <- argfix(list(C=C, t=t, p=p))
     n <- length(l[[1]])
-    rval <- .C("wrap_gsw_sp_from_c",
+    rval <- .C("wrap_gsw_SP_from_C",
                C=as.double(l$C), t=as.double(l$t), p=as.double(l$p),
                n=n, rval=double(n))$rval
     if (is.matrix(C))
